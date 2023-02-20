@@ -22,7 +22,7 @@ module.exports = {
     .addStringOption((option) =>
       option.setName("input").setDescription("Song Title").setRequired(true)
     ),
-  async execute(interaction, client) {
+  async execute(interaction) {
     const searchQuery = interaction.options.getString("input");
     //get voice channel ID
     const voiceChannelId = interaction.guild.members.cache.get(
@@ -79,7 +79,7 @@ module.exports = {
         const subscription = connection.subscribe(player);
 
         if (subscription) {
-          // Unsubscribe after 5 seconds (stop playing audio on the voice connection)
+          // Unsubscribe after 30 seconds (stop playing audio on the voice connection)
           setTimeout(() => subscription.unsubscribe(), 30_000);
         }
       } else {
