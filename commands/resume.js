@@ -3,8 +3,8 @@ const { getVoiceConnection, AudioPlayerStatus } = require("@discordjs/voice");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("pause")
-    .setDescription("Pause Audio"),
+    .setName("resume")
+    .setDescription("Resume Audio"),
 
   async execute(interaction) {
     if (!interaction.member.voice.channelId) {
@@ -20,7 +20,7 @@ module.exports = {
       return interaction.reply("The bot is not in this channel.");
     }
 
-    connection.state.subscription.player.pause();
-    await interaction.reply("Paused.");
+    connection.state.subscription.player.unpause();
+    await interaction.reply("unpaused.");
   },
 };

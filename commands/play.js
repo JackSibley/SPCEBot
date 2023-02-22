@@ -79,8 +79,8 @@ module.exports = {
         const subscription = connection.subscribe(player);
 
         if (subscription) {
-          // Unsubscribe after 30 seconds (stop playing audio on the voice connection)
-          setTimeout(() => subscription.unsubscribe(), 30_000);
+          // Unsubscribe after 60 seconds (stop playing audio on the voice connection)
+          setTimeout(() => subscription.unsubscribe(), 60_000);
         }
       } else {
         interaction.reply("You need to join a voice channel first!");
