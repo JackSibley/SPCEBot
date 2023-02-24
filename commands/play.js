@@ -58,6 +58,9 @@ module.exports = {
 
       const videoId = searchResults.data.items[0].id.videoId;
       const videoTitle = searchResults.data.items[0].snippet.title;
+      const videoThumbnail =
+        searchResults.data.items[0].snippet.thumbnails.default.url;
+      console.log(videoThumbnail);
       const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
       // Join the voice channel if the user is in one
@@ -75,15 +78,14 @@ module.exports = {
         const resource = createAudioResource(stream);
         player.play(resource);
 
-        interaction.reply("DISCO DISCO");
-
         const subscription = connection.subscribe(player);
 
         const embed = new EmbedBuilder()
           .setColor(0x0099ff)
           .setTitle("Now Playing")
-          .setDescription(videoTitle);
-        interaction.channel.send({ embeds: [embed] });
+          .setDescription(videoTitle)
+          .setThumbnail(videoThumbnail);
+        interaction.reply({ embeds: [embed] });
 
         if (subscription) {
           // Unsubscribe after 60 seconds (stop playing audio on the voice connection)
