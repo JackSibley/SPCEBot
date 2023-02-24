@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const ytdl = require("ytdl-core");
 const ffmpeg = require("ffmpeg-static");
 const { google } = require("googleapis");
@@ -43,7 +43,7 @@ module.exports = {
     //get audio from youtube
     try {
       const searchResults = await youtube.search.list({
-        part: "id",
+        part: "id, snippet",
         q: searchQuery,
         type: "video",
         maxResults: 1,
@@ -57,6 +57,7 @@ module.exports = {
       }
 
       const videoId = searchResults.data.items[0].id.videoId;
+      const videoTitle = searchResults.data.items[0].snippet.title;
       const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
       // Join the voice channel if the user is in one
@@ -74,9 +75,15 @@ module.exports = {
         const resource = createAudioResource(stream);
         player.play(resource);
 
-        interaction.reply("created voice connection");
+        interaction.reply("DISCO DISCO");
 
         const subscription = connection.subscribe(player);
+
+        const embed = new EmbedBuilder()
+          .setColor(0x0099ff)
+          .setTitle("Now Playing")
+          .setDescription(videoTitle);
+        interaction.channel.send({ embeds: [embed] });
 
         if (subscription) {
           // Unsubscribe after 60 seconds (stop playing audio on the voice connection)
