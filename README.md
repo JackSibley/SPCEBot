@@ -37,9 +37,3 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 ## Credits
 
 This bot was created by [Jack Sibley](https://github.com/JackSibley).
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
